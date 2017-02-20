@@ -1,0 +1,21 @@
+﻿using System;
+using UnityEngine;
+
+namespace GameInput
+{
+    public static class InputFabric
+    {
+        public static CustomInput GetInput()
+        {
+            if (Application.platform == RuntimePlatform.OSXEditor
+               || Application.platform == RuntimePlatform.OSXPlayer
+               || Application.platform == RuntimePlatform.WindowsEditor
+               || Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                return new KeyboardInput();
+            }
+            throw new Exception("Not supported Platform!");
+        }
+    }
+}
+
