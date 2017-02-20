@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using LevelGenerator;
 
 namespace GameInput
 {
@@ -19,7 +20,7 @@ namespace GameInput
         void Start()
         {
             input = InputFabric.GetInput();
-            LevelGenerator.GenerateLevel.OnMainCharacterCreated += GetMainCharacter;
+            GenerateLevel.OnMainCharacterCreated += new OnCharacterCreation(GetMainCharacter);
         }
 
         // Update is called once per frame

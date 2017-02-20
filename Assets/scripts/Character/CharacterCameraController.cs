@@ -14,7 +14,7 @@ namespace Character
 
         private void Start()
         {
-            GenerateLevel.OnMainCharacterCreated += SetCamera;
+            GenerateLevel.OnMainCharacterCreated += new OnCharacterCreation(SetCamera);
         }
     }
 }

@@ -14,8 +14,7 @@ namespace GameInput
             {
                 return new KeyboardInput();
             }
-            throw new Exception("Not supported Platform!");
+            throw new NotImplementedException("Not Supported Platform");
         }
     }
 }
-
