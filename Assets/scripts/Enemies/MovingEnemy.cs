@@ -1,21 +1,51 @@
 ﻿using System;
+using UnityEngine;
 
-public class MovingEnemy : MovingGameObject
+namespace PlatformerEnemies
 {
-    protected virtual void Move()
+    public class MovingEnemy : MovingGameObject, IEnemy
     {
-        throw new NotImplementedException();
-    }
+        protected int directon = 1;
 
-    protected override void OnCollision(UnityEngine.Collision2D collision)
-    {
-        throw new NotImplementedException();
-    }
+        protected virtual void Move()
+        {
+            if (!isDead)
+            {
+                if (!IsGrounded() || IsTouchingWall())
+                {
+                    Flip();
+                    directon = -directon;
+                }
+                rigidBody.velocity = new Vector2(maxSpeed * directon, rigidBody.velocity.y);
 
-    private void Update()
-    {
-        Move();
+                animator.SetFloat("speed", Math.Abs(rigidBody.velocity.x));
+            }
+        }
+
+        protected override void OnCollision(UnityEngine.Collision2D collision)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FixedUpdate()
+        {
+            Move();
+        }
+
+        private void OnBecomeInvisible()
+        {
+            if (isDead)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        public void Hurt()
+        {
+            //TODO Destroy
+            OnDeath();
+            isDead = true;
+        }
     }
 }
-
 

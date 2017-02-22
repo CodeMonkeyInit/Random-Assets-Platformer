@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using GameInput;
+﻿using UnityEngine;
 using System;
 using UnityStandardAssets._2D;
+using PlatformerEnemies;
 
 namespace Character
 {
     public class MainCharacter : MovingGameObject
     {
-        [SerializeField]
-        private LayerMask whatIsGround;
         //check
         [SerializeField]
         private float jumpForce = 10f;
@@ -19,68 +15,50 @@ namespace Character
         [SerializeField]
         private bool airControl;
 
-        const float groundedRadius = 0.2f;
-
-
         private bool isGrounded;
-        private bool facingForward = true;
         private bool slideDone;
-
-
 
         // Use this for initialization
         private void Awake()
         {
-
+            facingForward = true;
             animator = GetComponent<Animator>();
             rigidBody = GetComponent<Rigidbody2D>();
         }
 
         protected override void  OnCollision(Collision2D collision)
         {
-            throw new NotImplementedException();
-        }
-
-        void OnCollisionStay2D(Collision2D collider)
-        {
-            CheckIfGrounded();
-        }
-
-        void OnCollisionExit2D(Collision2D collider)
-        {
-            isGrounded = false;
-        }
-
-        private void CheckIfGrounded()
-        {
-            RaycastHit2D[] hits;
-
-            //We raycast down 1 pixel from this position to check for a collider
-            Vector2 positionToCheck = transform.position;
-            hits = Physics2D.RaycastAll(positionToCheck, new Vector2(0, -1), 0.01f);
-
-            //if a collider was hit, we are grounded
-            if (hits.Length > 0)
+            IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
+            if (enemy != null)
             {
-                isGrounded = true;
+                foreach (ContactPoint2D contactPoint in collision.contacts)
+                {
+                    Debug.Log(contactPoint.normal);
+                    Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.red, 10);
+                    if (contactPoint.normal != new Vector2(-1f, 0f))
+                    {
+                        enemy.Hurt();
+                    }
+                    else
+                    {
+                        OnDeath();
+                        isDead = true;
+                    }
+                }
             }
         }
-	
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            OnCollision(collision);
+        }
+            
         // Update is called once per frame
         private void FixedUpdate()
         {
+            isGrounded = IsGrounded();
             animator.SetBool("isGrounded", isGrounded);
             animator.SetFloat("VerticalSpeed", rigidBody.velocity.y);
-        }
-
-        private void Flip()
-        {
-            Vector3 theScale;
-            facingForward = !facingForward;
-            theScale = transform.localScale;
-            theScale.x *= -1;
-
-            transform.localScale = theScale;
         }
 
         public void Move(float move, CharacterStatus status)
@@ -110,7 +88,7 @@ namespace Character
                 }
                 animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
 
-                if (move > 0 && false == facingForward)
+                if (move > 0 && !facingForward)
                 {
                     Flip();
                 }

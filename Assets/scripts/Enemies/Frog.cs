@@ -1,15 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-public class Frog : MovingEnemy
+namespace PlatformerEnemies
 {
-    [SerializeField]
-    private float jumpForce;
-
-    protected override void Move()
+    public class Frog : MovingEnemy
     {
-        throw new NotImplementedException();
+        [SerializeField]
+        private float jumpForce;
+
+        protected override void Move()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
-
 

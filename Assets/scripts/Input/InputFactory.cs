@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameInput
 {
-    public static class InputFabric
+    public static class InputFactory
     {
         public static CustomInput GetInput()
         {

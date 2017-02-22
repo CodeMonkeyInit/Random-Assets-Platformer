@@ -19,7 +19,7 @@ namespace GameInput
         // Use this for initialization
         void Start()
         {
-            input = InputFabric.GetInput();
+            input = InputFactory.GetInput();
             GenerateLevel.OnMainCharacterCreated += new OnCharacterCreation(GetMainCharacter);
         }
 

@@ -1,10 +1,17 @@
 ﻿using System;
 
-
-public class BasicEnemy : InteractableGameObject
+namespace PlatformerEnemies
 {
-    protected override void OnCollision(UnityEngine.Collision2D collision)
+    public class BasicEnemy : InteractableGameObject, IEnemy
     {
-        throw new NotImplementedException();
+        public virtual void Hurt()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnCollision(UnityEngine.Collision2D collision)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
