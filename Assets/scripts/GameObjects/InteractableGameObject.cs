@@ -9,5 +9,13 @@ public abstract class InteractableGameObject : MonoBehaviour
     protected Animator animator;
     protected bool isDead;
 
-    protected abstract void OnCollision(Collision2D collision);
+    public bool IsDead { get { return isDead; } }
+
+    protected void Start()
+    {
+        animator = GetComponent<Animator>();
+        rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    protected abstract void OnCollisionEnter2D(Collision2D collision);
 }

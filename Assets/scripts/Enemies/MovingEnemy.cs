@@ -5,39 +5,36 @@ namespace PlatformerEnemies
 {
     public class MovingEnemy : MovingGameObject, IEnemy
     {
-        protected int directon = 1;
-
         protected virtual void Move()
         {
             if (!isDead)
             {
                 if (!IsGrounded() || IsTouchingWall())
                 {
-                    Flip();
-                    directon = -directon;
+                    ChangeDirection();
                 }
-                rigidBody.velocity = new Vector2(maxSpeed * directon, rigidBody.velocity.y);
+                rigidBody.velocity = new Vector2(maxSpeed * Direction, rigidBody.velocity.y);
 
                 animator.SetFloat("speed", Math.Abs(rigidBody.velocity.x));
             }
         }
 
-        protected override void OnCollision(UnityEngine.Collision2D collision)
+        protected override void OnCollisionEnter2D(Collision2D collision)
         {
-            throw new NotImplementedException();
+            if (!isDead)
+            {
+                IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
+
+                if (enemy != null)
+                {
+                    ChangeDirection();
+                }
+            }
         }
 
-        private void FixedUpdate()
+        protected void FixedUpdate()
         {
             Move();
-        }
-
-        private void OnBecomeInvisible()
-        {
-            if (isDead)
-            {
-                Destroy(this.gameObject);
-            }
         }
 
         public void Hurt()

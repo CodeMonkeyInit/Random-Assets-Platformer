@@ -7,34 +7,23 @@ namespace PlatformerEnemies
     {
         private const float deadSlimeColiderHeight = .1f;
 
-        protected override void OnCollision(Collision2D collision)
+        protected override void OnCollisionEnter2D(Collision2D collision)
         {
-            throw new NotImplementedException();
+            base.OnCollisionEnter2D(collision);
         }
 
         protected override void OnDeath()
         {
-            BoxCollider2D boxColider = GetComponent<BoxCollider2D>();
-            CircleCollider2D circleColider = GetComponent<CircleCollider2D>();
-
-            circleColider.enabled = false;
-            animator.SetBool("isDead", true);
-            boxColider.size = new Vector2(boxColider.size.x, deadSlimeColiderHeight);
-        }
-
-        void Awake()
-        {
-            animator = GetComponent<Animator>();
-            rigidBody = GetComponent<Rigidbody2D>();
-        }
-
-        //FIXME just for lulz, I mean test
-        private void OnBecameInvisible()
-        {
-            if (isDead)
+            if (!isDead)
             {
-                Destroy(this.gameObject);
+                BoxCollider2D boxColider = GetComponent<BoxCollider2D>();
+                CircleCollider2D circleColider = GetComponent<CircleCollider2D>();
+ 
+                circleColider.offset = new Vector2(circleColider.offset.x, circleColider.offset.y + .1f);
+                animator.SetBool("isDead", true);
+                boxColider.size = new Vector2(boxColider.size.x, deadSlimeColiderHeight);
             }
         }
+
     }
 }

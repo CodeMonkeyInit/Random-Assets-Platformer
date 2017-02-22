@@ -70,7 +70,6 @@
      <None Include="Assets\sprites\platforms\PNG Snow\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Choco\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Metal\Spritesheet\sheet.xml" />
-     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\sprites\platforms\PNG Castle\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Purple\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Cake\Spritesheet\sheet.xml" />

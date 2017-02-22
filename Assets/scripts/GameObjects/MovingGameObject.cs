@@ -14,9 +14,9 @@ public abstract class MovingGameObject : InteractableGameObject
     [SerializeField]
     protected bool facingForward;
     [SerializeField]
-    protected float heightMiddle = .05f;
-    [SerializeField]
     protected float widthMiddle = 1f;
+    [SerializeField]
+    protected float wallCheckLineLength = .01f;
     [SerializeField]
     protected float groundCheckLineLength = 0.7f;
     protected readonly Vector2 deathVelocity = new Vector2(0, 7f);
@@ -27,11 +27,11 @@ public abstract class MovingGameObject : InteractableGameObject
         {
             if (facingForward)
             {
-                return transform.right;
+                return -transform.right;
             }
             else
             {
-                return -transform.right;
+                return transform.right;
             }
         }
     }
@@ -59,7 +59,30 @@ public abstract class MovingGameObject : InteractableGameObject
         get { return GetSpriteRenderer.bounds.extents.y; }
     }
 
-    protected void Flip()
+    protected int Direction
+    { 
+        get
+        {
+            if (facingForward)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
+
+    protected void OnBecameInvisible()
+    {
+        if (isDead)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    protected void ChangeDirection()
     {
         Vector3 tempScale;
         facingForward = !facingForward;
@@ -86,12 +109,11 @@ public abstract class MovingGameObject : InteractableGameObject
     {
         bool isTouchingWall;
 
-
         Vector2 lineCastPosition = transform.position - TransformAxis * SpriteWidth;
-        Debug.DrawLine(lineCastPosition, lineCastPosition - TransformAxis.toVector2() * heightMiddle);
+        Debug.DrawLine(lineCastPosition, lineCastPosition - TransformAxis.toVector2() * wallCheckLineLength);
 
         isTouchingWall = Physics2D.Linecast(lineCastPosition, 
-            lineCastPosition - transform.right.toVector2() * heightMiddle, 
+            lineCastPosition - transform.right.toVector2() * wallCheckLineLength, 
             whatIsWall);
 
         return isTouchingWall;
@@ -101,11 +123,12 @@ public abstract class MovingGameObject : InteractableGameObject
     {
         foreach (Collider2D colider in GetComponents<Collider2D>())
         {
-            animator.SetBool("isDead", true);
             colider.enabled = false;
         }
-
+        isDead = true;
+        animator.SetBool("isDead", true);
         rigidBody.velocity = deathVelocity;
+
     }
 
 }
