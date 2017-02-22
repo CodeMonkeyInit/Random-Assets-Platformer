@@ -46,7 +46,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\PlayerManager.cs" />
+     <Compile Include="Assets\scripts\Character\CharacterCameraController.cs" />
+     <Compile Include="Assets\scripts\Character\CharacterStatus.cs" />
+     <Compile Include="Assets\scripts\Character\CustomCharacterInputController.cs" />
+     <Compile Include="Assets\scripts\Character\MainCharacter.cs" />
+     <Compile Include="Assets\scripts\Enemies\BasicEnemy.cs" />
+     <Compile Include="Assets\scripts\Enemies\Frog.cs" />
+     <Compile Include="Assets\scripts\Enemies\IEnemy.cs" />
+     <Compile Include="Assets\scripts\Enemies\MovingEnemy.cs" />
+     <Compile Include="Assets\scripts\Enemies\Slime.cs" />
+     <Compile Include="Assets\scripts\ExtensionMethods.cs" />
+     <Compile Include="Assets\scripts\GameObjects\InteractableGameObject.cs" />
+     <Compile Include="Assets\scripts\GameObjects\MovingGameObject.cs" />
+     <Compile Include="Assets\scripts\GenerateLevel.cs" />
+     <Compile Include="Assets\scripts\Input\CustomInput.cs" />
+     <Compile Include="Assets\scripts\Input\InputFactory.cs" />
+     <Compile Include="Assets\scripts\Input\KeyboardInput.cs" />
+     <Compile Include="Assets\scripts\Input\UserInput.cs" />
      <None Include="Assets\sprites\platforms\PNG Sand\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Dirt\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Grass\Spritesheet\sheet.xml" />
@@ -54,7 +70,6 @@
      <None Include="Assets\sprites\platforms\PNG Snow\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Choco\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Metal\Spritesheet\sheet.xml" />
-     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\sprites\platforms\PNG Castle\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Purple\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Cake\Spritesheet\sheet.xml" />

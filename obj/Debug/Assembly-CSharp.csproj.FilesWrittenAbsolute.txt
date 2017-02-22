@@ -19,3 +19,5 @@
 /Users/deniskuliev/Dropbox/Лабы/Курсач ООП/Random Assets Platformer/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/deniskuliev/Dropbox/Лабы/Курсач ООП/Random Assets Platformer/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/deniskuliev/Dropbox/Лабы/Курсач ООП/Random Assets Platformer/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/deniskuliev/Dropbox/Лабы/Курсач ООП/Random Assets Platformer/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/Users/deniskuliev/Dropbox/Лабы/Курсач ООП/Random Assets Platformer/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
