@@ -51,6 +51,7 @@ namespace Character
         {
             Vector2 enemyAttackVector = new Vector2(1f, 0f);
             IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
+            const float accuracy = 0.2f;
 
             if (enemy != null)
             {
@@ -59,7 +60,7 @@ namespace Character
                     Debug.Log(contactPoint.normal);
                     Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.red, 10);
                     //TODO Find optimal vector
-                    if (contactPoint.normal.Abs().x != enemyAttackVector.x)
+                    if (Math.Abs((contactPoint.normal.Abs().x - enemyAttackVector.x)) > accuracy)
                     {
                         enemy.Hurt();
                     }
