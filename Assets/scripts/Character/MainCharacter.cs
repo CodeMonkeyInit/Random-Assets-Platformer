@@ -58,7 +58,8 @@ namespace Character
                 {
                     Debug.Log(contactPoint.normal);
                     Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.red, 10);
-                    if (contactPoint.normal.Abs() != enemyAttackVector)
+                    //TODO Find optimal vector
+                    if (contactPoint.normal.Abs().x != enemyAttackVector.x)
                     {
                         enemy.Hurt();
                     }
@@ -150,6 +151,10 @@ namespace Character
 
         public void Hurt()
         {
+            //FIXME
+            GameObject.FindObjectOfType<Camera2DFollow>().target = null;
+            //FIXME
+
             OnDeath();
             StartCoroutine(DestroyAfterSoundFinished());
         }

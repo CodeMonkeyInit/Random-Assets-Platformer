@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 namespace Character
 {
-    public class CustomCharacterController : MonoBehaviour
+    public class CustomCharacterController : BasicGameObject
     {
-        private static int instanceCount;
         private CustomInput input;
         private GenerateLevel levelGenerator;
+        private int playersCount;
 
 
         public CharacterCoinController coinController;
@@ -19,9 +19,9 @@ namespace Character
 
 
         // Use this for initialization
-        private void Start()
+        protected void Start()
         {
-            instanceCount++;
+            playersCount++;
             coinController = new CharacterCoinController();
             levelGenerator = GameObject.FindObjectOfType<GenerateLevel>();
             input = InputFactory.GetInput();
@@ -29,29 +29,26 @@ namespace Character
         }
 
         // Update is called once per frame
-        private void Update()
+        protected void Update()
         {
+            UserInput userInput = input.GetInput();
+
             if (coinController.CoinCount > 100)
             {
                 coinController.Reset();
                 character.AddLives(1);
             }
-
-            if (character == null)
-            {
-                Debug.LogError("Dead");
-                levelGenerator.Restart(4);
-            }
-            UserInput userInput = input.GetInput();
+                
             character.Move(userInput.move, userInput.status);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-            instanceCount--;
+            base.OnDestroy();
+            playersCount--;
             input.Destroy();
 
-            if (instanceCount == 0)
+            if (playersCount == 0)
             {
                 levelGenerator.Restart(0);
             }

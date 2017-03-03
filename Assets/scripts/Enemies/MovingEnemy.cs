@@ -39,7 +39,6 @@ namespace PlatformerEnemies
 
         public void Hurt()
         {
-            //TODO Destroy
             OnDeath();
             isDead = true;
         }

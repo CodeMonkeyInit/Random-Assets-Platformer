@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class InteractableGameObject : MonoBehaviour
+public abstract class InteractableGameObject : BasicGameObject
 {
     [SerializeField]
     protected AudioClip[] interactionSounds;
@@ -24,8 +24,9 @@ public abstract class InteractableGameObject : MonoBehaviour
 
     public bool IsDead { get { return isDead; } }
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }

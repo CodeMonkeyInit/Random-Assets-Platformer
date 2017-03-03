@@ -11,10 +11,6 @@ public class LevelSurface : InteractableGameObject
 
         if (character != null)
         {
-            if (audioSource == null)
-            {
-                Debug.LogError("AAAAAAAA");
-            }
             audioSource.PlayOneShot(InteractionSound, 1f);
         }
     }

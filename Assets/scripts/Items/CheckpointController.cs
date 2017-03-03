@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Checkpoint
 {
 
-    public class CheckpointController : MonoBehaviour
+    public class CheckpointController : BasicGameObject
     {
-        private static int currentCheckpoint = 0;
+        private static int? currentCheckpoint;
         private GameObjectSpawner gameObjectSpawner;
 
         private void Start()
@@ -20,9 +20,9 @@ namespace Checkpoint
             gameObjectSpawner[currentCheckpoint].Spawn();
         }
 
-        public static void SetCheckpoint(int id)
+        public static void SetCheckpoint(int checkpointID)
         {
-            currentCheckpoint = id;
+            currentCheckpoint = checkpointID;
         }
 
         public static void ResetCheckpoint()
