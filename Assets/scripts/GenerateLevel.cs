@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets._2D;
 using GameInput;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace LevelGenerator
 {
-    public delegate void OnCharacterCreation();
 
     [Serializable]
     struct ColorToPrefab
@@ -17,7 +18,6 @@ namespace LevelGenerator
 
     public class GenerateLevel : MonoBehaviour
     {
-        static public OnCharacterCreation OnMainCharacterCreated;
         [SerializeField]
         private Texture2D level;
 
@@ -26,9 +26,6 @@ namespace LevelGenerator
 
         private Dictionary<Color32, GameObject> colorAndPrefabs;
 
-        private bool mainCharacterCreated;
-
-        private static readonly string mainCharacterName = "MainCharacter(Clone)";
 
         private void EmptyMap()
         {
@@ -59,15 +56,9 @@ namespace LevelGenerator
                 {
                     GameObject prefab = (GameObject)Instantiate(colorAndPrefabs[color], position, Quaternion.identity);
                     prefab.transform.SetParent(this.transform);
-
-                    if (!mainCharacterCreated && prefab.name == mainCharacterName)
-                    {
-                        mainCharacterCreated = true;
-                        OnMainCharacterCreated();
-                    }
                     return;
                 }
-                Debug.LogError("Prefab not found " + color);
+                Debug.LogWarning("Prefab not found " + color);
             }
 			
         }
@@ -89,12 +80,23 @@ namespace LevelGenerator
         }
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
-            mainCharacterCreated = false;
             colorAndPrefabs = new Dictionary<Color32, GameObject>();
             FillDictionary();
             LoadMap();
+        }
+
+        private static IEnumerator Reload(int seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            SceneManager.LoadScene(0);
+        }
+
+        public void Restart(int seconds)
+        {
+            StartCoroutine(GenerateLevel.Reload(seconds));
         }
     }
 }

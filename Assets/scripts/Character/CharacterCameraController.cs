@@ -7,14 +7,9 @@ namespace Character
 {
     public class CharacterCameraController : MonoBehaviour
     {
-        private void SetCamera()
-        {
-            GameObject.FindObjectOfType<Camera2DFollow>().target = GameObject.FindObjectOfType<MainCharacter>().transform;
-        }
-
         private void Start()
         {
-            GenerateLevel.OnMainCharacterCreated += new OnCharacterCreation(SetCamera);
+            GameObject.FindObjectOfType<Camera2DFollow>().target = GetComponentInParent<MainCharacter>().transform;
         }
     }
 }

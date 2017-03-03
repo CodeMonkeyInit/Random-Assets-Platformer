@@ -7,7 +7,8 @@ namespace Character
 {
     public class MainCharacter : MovingGameObject
     {
-        //check
+        [SerializeField]
+        private AudioClip[] jumpSounds;
         [SerializeField]
         private float jumpForce = 10f;
         [SerializeField]
@@ -15,16 +16,40 @@ namespace Character
         [SerializeField]
         private bool airControl;
         [SerializeField]
-        private readonly ushort jumpsAllowed = 2;
+        private short jumpsAllowed = 1;
+
+        private AudioClip JumpSound
+        {
+            get { return jumpSounds.GetRandomSound(); }
+        }
 
         private bool isGrounded;
-        private bool slideDone;
+        private short jumpsCount;
 
-        private ushort jumpsCount;
-
-        protected override void OnCollisionEnter2D(Collision2D collision)
+        private void CheckIfPlayerHangingByTheCliff(Collision2D collision)
         {
-            Vector2 enemyAttackVector = new Vector2(-1f, 0f);
+            Vector2 aboveWallCollisionVector = new Vector2(0f, -1f);
+
+            if (!isGrounded && !IsTouchingWall())
+            {
+                if (collision.gameObject.GetComponent<PolygonCollider2D>() != null)
+                {
+                    jumpsCount = jumpsAllowed;
+                    foreach (ContactPoint2D contactPoint in collision.contacts)
+                    {
+                        if (contactPoint.normal == aboveWallCollisionVector)
+                        {
+                            jumpsCount = 0;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CheckIfPlayerColidingWithEnemy(Collision2D collision)
+        {
+            Vector2 enemyAttackVector = new Vector2(1f, 0f);
             IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
 
             if (enemy != null)
@@ -33,13 +58,14 @@ namespace Character
                 {
                     Debug.Log(contactPoint.normal);
                     Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.red, 10);
-                    if (contactPoint.normal != enemyAttackVector)
+                    if (contactPoint.normal.Abs() != enemyAttackVector)
                     {
                         enemy.Hurt();
                     }
-                    else
+                    else if (!(enemy as InteractableGameObject).IsDead)
                     {
-                        OnDeath();
+                        Hurt();
+                        break;
                     }
                 }
             }
@@ -52,36 +78,54 @@ namespace Character
             animator.SetFloat("VerticalSpeed", rigidBody.velocity.y);
         }
 
+        private void Jump()
+        {
+            if (isGrounded)
+            {
+                jumpsCount = jumpsAllowed;
+            }
+            jumpsCount--;
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+            audioSource.PlayOneShot(JumpSound);
+        }
+
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            CheckIfPlayerHangingByTheCliff(collision);
+            CheckIfPlayerColidingWithEnemy(collision);
+        }
+
+        protected override void OnBecameInvisible()
+        {
+            //DO NOTHING
+        }
+
+        public void AddLives(int lives)
+        {
+            health += lives;
+        }
+
         public void Move(float move, CharacterStatus status)
         {
             if (!isDead)
             {
-                bool isCrouched;
+                bool isCrouched = false;
+
                 if (status == CharacterStatus.Crouched)
                 {
                     isCrouched = true;
                 }
-                else
-                {
-                    isCrouched = false;
-                }
 
                 animator.SetBool("isCrouched", isCrouched);
 
-                Debug.Log(jumpsCount);
-
                 if (isGrounded || (airControl && !IsTouchingWall()))
                 {
-                    if (isGrounded)
-                    {
-                        jumpsCount = jumpsAllowed;
-                    }
+
                     if (!isCrouched)
                     {
                         rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
-                        slideDone = false;
                     }
-                    else if (!slideDone)
+                    else
                     {
                         rigidBody.AddForce(new Vector2(move * slideForce, rigidBody.velocity.y));
                     }
@@ -96,14 +140,18 @@ namespace Character
                         ChangeDirection();	
                     }
 
-                    if (status == CharacterStatus.Jumping && jumpsCount != 0)
+                    if (status == CharacterStatus.Jumping && (jumpsCount > 0 || isGrounded))
                     {
-                        jumpsCount--;
-                        animator.SetBool("isGrounded", isGrounded);
-                        rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+                        Jump();
                     }
                 }
             }
+        }
+
+        public void Hurt()
+        {
+            OnDeath();
+            StartCoroutine(DestroyAfterSoundFinished());
         }
     }
 }
