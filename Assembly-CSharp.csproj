@@ -71,6 +71,7 @@
      <Compile Include="Assets\scripts\Items\GameObjectSpawner.cs" />
      <Compile Include="Assets\scripts\Items\LevelEnd.cs" />
      <Compile Include="Assets\scripts\Items\LevelSurface.cs" />
+     <Compile Include="Assets\scripts\Items\MultiPlayerCamera.cs" />
      <None Include="Assets\sprites\platforms\PNG Sand\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Dirt\Spritesheet\sheet.xml" />
      <None Include="Assets\sprites\platforms\PNG Grass\Spritesheet\sheet.xml" />
@@ -102,10 +103,6 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{5FEBC7A1-858B-8E73-BF5E-873AE80EEEA9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets._2D;
 using GameInput;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -25,6 +24,15 @@ namespace LevelGenerator
         private ColorToPrefab[] colorPrefabsArray;
 
         private Dictionary<Color32, GameObject> colorAndPrefabs;
+
+        public int LevelHeight
+        {
+            get { return level.height; }
+        }
+        public int LevelWidth
+        {
+            get { return level.width; }
+        }
 
 
         private void EmptyMap()
@@ -66,15 +74,13 @@ namespace LevelGenerator
         private void LoadMap()
         {
             Color32[] prefabsPositions = level.GetPixels32();
-            int width = level.width;
-            int height = level.height;
             EmptyMap();
 
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < LevelWidth; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < LevelHeight; y++)
                 {
-                    SpawnPrefab(prefabsPositions[(width * y) + x], new Vector2(x, y));
+                    SpawnPrefab(prefabsPositions[(LevelWidth * y) + x], new Vector2(x, y));
                 }
             }
         }

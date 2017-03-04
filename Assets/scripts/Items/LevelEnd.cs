@@ -11,7 +11,7 @@ public class LevelEnd : BasicGameObject
 
         if (character != null)
         {
-            character.Hurt();
+            character.Hurt(false);
         }
     }
 }

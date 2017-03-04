@@ -146,7 +146,7 @@ public abstract class MovingGameObject : InteractableGameObject
         return isTouchingWall;
     }
 
-    protected virtual void OnDeath()
+    protected void OnDeath()
     {
         foreach (Collider2D colider in GetComponents<Collider2D>())
         {
@@ -154,8 +154,14 @@ public abstract class MovingGameObject : InteractableGameObject
         }
         isDead = true;
         animator.SetBool("isDead", true);
-        rigidBody.velocity = deathVelocity;
         GameObject.FindObjectOfType<AudioSource>().PlayOneShot(InteractionSound);
+    }
+
+    protected virtual void OnDeathByAttack()
+    {
+        OnDeath();
+        rigidBody.velocity = deathVelocity;
+
     }
 }
 

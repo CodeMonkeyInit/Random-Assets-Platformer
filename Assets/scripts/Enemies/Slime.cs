@@ -12,7 +12,7 @@ namespace PlatformerEnemies
             base.OnCollisionEnter2D(collision);
         }
 
-        protected override void OnDeath()
+        protected override void OnDeathByAttack()
         {
             if (!isDead)
             {

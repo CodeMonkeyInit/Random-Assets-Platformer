@@ -39,7 +39,7 @@ namespace PlatformerEnemies
 
         public void Hurt()
         {
-            OnDeath();
+            OnDeathByAttack();
             isDead = true;
         }
     }

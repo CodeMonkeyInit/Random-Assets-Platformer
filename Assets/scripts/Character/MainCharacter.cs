@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using UnityStandardAssets._2D;
 using PlatformerEnemies;
 
 namespace Character
@@ -51,7 +50,7 @@ namespace Character
         {
             Vector2 enemyAttackVector = new Vector2(1f, 0f);
             IEnemy enemy = collision.gameObject.GetComponent<IEnemy>();
-            const float accuracy = 0.2f;
+            const float accuracy = 0.1f;
 
             if (enemy != null)
             {
@@ -97,10 +96,7 @@ namespace Character
             CheckIfPlayerColidingWithEnemy(collision);
         }
 
-        protected override void OnBecameInvisible()
-        {
-            //DO NOTHING
-        }
+        protected override void OnBecameInvisible(){ /*DO NOTHING*/ }
 
         public void AddLives(int lives)
         {
@@ -150,13 +146,16 @@ namespace Character
             }
         }
 
-        public void Hurt()
+        public void Hurt(bool deathCausedByEnemy = true)
         {
-            //FIXME
-            GameObject.FindObjectOfType<Camera2DFollow>().target = null;
-            //FIXME
-
-            OnDeath();
+            if (deathCausedByEnemy)
+            {
+                OnDeathByAttack();
+            }
+            else
+            {
+                OnDeath();
+            }
             StartCoroutine(DestroyAfterSoundFinished());
         }
     }

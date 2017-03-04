@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameInput;
 using LevelGenerator;
-using UnityEngine.SceneManagement;
 
 namespace Character
 {
     public class CustomCharacterController : BasicGameObject
     {
+        private static int playersCount;
+        private CharacterCameraController cameraController;
         private CustomInput input;
         private GenerateLevel levelGenerator;
-        private int playersCount;
-
 
         public CharacterCoinController coinController;
         public MainCharacter character;
@@ -26,6 +25,8 @@ namespace Character
             levelGenerator = GameObject.FindObjectOfType<GenerateLevel>();
             input = InputFactory.GetInput();
             character = GetComponentInParent<MainCharacter>();
+            //FIXME wtf
+            cameraController = character.GetComponentInChildren<CharacterCameraController>();
         }
 
         // Update is called once per frame
@@ -38,7 +39,17 @@ namespace Character
                 coinController.Reset();
                 character.AddLives(1);
             }
-                
+
+            if (character.IsDead)
+            {
+                if (cameraController != null)
+                {
+                    Debug.Log("Camera found");
+                    Destroy(this.cameraController);
+                }
+
+            }
+
             character.Move(userInput.move, userInput.status);
         }
 
