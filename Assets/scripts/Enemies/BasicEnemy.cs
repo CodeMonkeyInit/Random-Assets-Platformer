@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace PlatformerEnemies
 {
@@ -8,7 +9,7 @@ namespace PlatformerEnemies
         {
             throw new NotImplementedException();
         }
-        protected override void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+        protected override void OnCollisionEnter2D(Collision2D collision)
         {
             throw new NotImplementedException();
         }

@@ -12,7 +12,7 @@ namespace GameInput
                || Application.platform == RuntimePlatform.WindowsEditor
                || Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                return new KeyboardInput();
+                return new PhysicalInput();
             }
             throw new NotImplementedException("Not Supported Platform");
         }
