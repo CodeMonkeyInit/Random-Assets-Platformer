@@ -45,6 +45,7 @@ namespace Character
             {
                 charater = gameObject.GetComponentInParent<MainCharacter>();
             }
+
             SetCameraConstrains();
             levelCamera.AttachPlayer(charater.transform);
         }

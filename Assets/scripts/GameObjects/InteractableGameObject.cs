@@ -22,6 +22,11 @@ public abstract class InteractableGameObject : BasicGameObject
         }
     }
 
+    public int Health
+    {
+        get { return health; }
+    }
+
     public bool IsDead { get { return isDead; } }
 
     protected override void Awake()
@@ -31,11 +36,9 @@ public abstract class InteractableGameObject : BasicGameObject
         animator = GetComponent<Animator>();
     }
 
-    protected IEnumerator DestroyAfterSoundFinished()
+    protected void DestroyAfterSoundFinished()
     {
-        yield return new WaitForSeconds(interactionSoundLength);
-
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, interactionSoundLength);
     }
 
     protected abstract void OnCollisionEnter2D(Collision2D collision);

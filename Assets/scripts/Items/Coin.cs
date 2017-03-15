@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using Coins;
 
 public class Coin : InteractableGameObject
 {
@@ -23,7 +24,7 @@ public class Coin : InteractableGameObject
             audioSource.PlayOneShot(InteractionSound, Random.Range(minSound, maxSound));
             coinController.AddCoins(price);
             gameObject.GetComponent<Renderer>().enabled = false;
-            StartCoroutine(DestroyAfterSoundFinished());
+            DestroyAfterSoundFinished();
         }
     }
 
@@ -42,7 +43,7 @@ public class Coin : InteractableGameObject
             colider.enabled = false;
             gameObject.GetComponent<Renderer>().enabled = false;
 
-            StartCoroutine(DestroyAfterSoundFinished());
+            DestroyAfterSoundFinished();
         }
     }
 }

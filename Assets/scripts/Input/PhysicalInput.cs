@@ -13,6 +13,9 @@ namespace GameInput
             input.move = Input.GetAxis("Horizontal" + CurrentPlayer);
             input.status = CharacterStatus.Normal;
 
+            if (Input.GetKeyUp(KeyCode.Escape))
+                Application.Quit();
+
             if(Input.GetAxis("Vertical" + CurrentPlayer) < 0)
             {
                 input.status = CharacterStatus.Crouched;

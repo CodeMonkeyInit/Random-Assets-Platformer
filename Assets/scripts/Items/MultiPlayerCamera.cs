@@ -27,6 +27,21 @@ namespace Camera2D
         [SerializeField]
         private List<Transform> players = new List<Transform>();
 
+        private CameraConstraints CameraUpdateConstraints
+        {
+            get
+            {
+                float halfCameraHeight = Camera.main.orthographicSize;
+                float cameraPositionY = transform.position.y;
+
+                return new CameraConstraints(
+                    0, 
+                    cameraPositionY,
+                    0, 
+                    cameraPositionY + halfCameraHeight); 
+            }
+        }
+
         private Vector3 GetSlowestPlayerCoordinates()
         {
             Transform slowestPlayer = players[0];
@@ -51,8 +66,16 @@ namespace Camera2D
             if (players.Count > 0)
             {
                 Vector3 slowestPlayer = GetSlowestPlayerCoordinates();
+                CameraConstraints updateConstraints = CameraUpdateConstraints;
+
                 float xCamera = Mathf.Clamp(slowestPlayer.x, cameraConstraints.minX, cameraConstraints.maxX);
-                float yCamera = Mathf.Clamp(slowestPlayer.y, cameraConstraints.minY, cameraConstraints.maxY);
+                float yCamera = transform.position.y;
+
+                if (slowestPlayer.y > updateConstraints.maxY || slowestPlayer.y < updateConstraints.minY)
+                {
+                    yCamera = Mathf.Clamp(slowestPlayer.y, cameraConstraints.minY, cameraConstraints.maxY);
+                }
+
                 Vector3 newCameraCoordinates = new Vector3(xCamera, yCamera, transform.position.z);
 
                 transform.position = newCameraCoordinates;

@@ -5,16 +5,22 @@ namespace GameInput
 {
     public static class InputFactory
     {
-        public static CustomInput GetInput()
+        public static CustomInput GetInput(GameObject mobileInput = null)
         {
             if (Application.platform == RuntimePlatform.OSXEditor
-               || Application.platform == RuntimePlatform.OSXPlayer
-               || Application.platform == RuntimePlatform.WindowsEditor
-               || Application.platform == RuntimePlatform.WindowsPlayer)
+                || Application.platform == RuntimePlatform.OSXPlayer
+                || Application.platform == RuntimePlatform.WindowsEditor
+                || Application.platform == RuntimePlatform.WindowsPlayer)
             {
                 return new PhysicalInput();
             }
-            throw new NotImplementedException("Not Supported Platform");
+            else if (Application.platform == RuntimePlatform.Android
+                     || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                return new TouchInput(mobileInput);
+            }
+
+            throw new NotImplementedException("UnSupported Platform");
         }
     }
 }

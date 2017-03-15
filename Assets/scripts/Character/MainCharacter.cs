@@ -17,6 +17,7 @@ namespace Character
         [SerializeField]
         private short jumpsAllowed = 1;
 
+
         private AudioClip JumpSound
         {
             get { return jumpSounds.GetRandomSound(); }
@@ -148,6 +149,7 @@ namespace Character
 
         public void Hurt(bool deathCausedByEnemy = true)
         {
+            health--;
             if (deathCausedByEnemy)
             {
                 OnDeathByAttack();
@@ -156,7 +158,7 @@ namespace Character
             {
                 OnDeath();
             }
-            StartCoroutine(DestroyAfterSoundFinished());
+            DestroyAfterSoundFinished();
         }
     }
 }
