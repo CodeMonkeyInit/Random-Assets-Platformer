@@ -8,7 +8,11 @@ public class GameObjectSpawner : BasicGameObject
 {
     private static  SortedDictionary<int, GameObjectSpawner> spawnerDictionary = new SortedDictionary<int, GameObjectSpawner>();
 
+    private int prefabsSpawned;
+
     public GameObject prefabToSpawn;
+
+    public int prefabsToSpawnCount = 1;
 
     public GameObjectSpawner this [int? i]
     { 
@@ -26,6 +30,7 @@ public class GameObjectSpawner : BasicGameObject
     {
         base.Awake();
 
+        prefabsSpawned = 0;
         spawnerDictionary.Add(id, this);
     }
 
@@ -37,7 +42,11 @@ public class GameObjectSpawner : BasicGameObject
 
     public void Spawn()
     {
-        GameObject prefab = (GameObject) Instantiate(prefabToSpawn, transform.transform.position, Quaternion.identity);
-        prefab.transform.SetParent(GetComponentInParent<GenerateLevel>().transform);
+        while (prefabsSpawned != prefabsToSpawnCount)
+        {
+            GameObject prefab = (GameObject) Instantiate(prefabToSpawn, transform.transform.position, Quaternion.identity);
+            prefab.transform.SetParent(GetComponentInParent<GenerateLevel>().transform);
+            prefabsSpawned++;
+        }
     }
 }

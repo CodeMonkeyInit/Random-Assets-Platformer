@@ -11,6 +11,7 @@ namespace Character
         private MainCharacter charater;
         private GenerateLevel levelGenerator;
 
+
         [SerializeField]
         private float cameraOffsetX = 0;
         [SerializeField]

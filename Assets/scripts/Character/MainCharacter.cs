@@ -17,7 +17,6 @@ namespace Character
         [SerializeField]
         private short jumpsAllowed = 1;
 
-
         private AudioClip JumpSound
         {
             get { return jumpSounds.GetRandomSound(); }
@@ -25,6 +24,11 @@ namespace Character
 
         private bool isGrounded;
         private short jumpsCount;
+
+        public float MaxSpeed
+        {
+            get{ return maxSpeed; }
+        }
 
         private void CheckIfPlayerHangingByTheCliff(Collision2D collision)
         {
@@ -97,7 +101,9 @@ namespace Character
             CheckIfPlayerColidingWithEnemy(collision);
         }
 
-        protected override void OnBecameInvisible(){ /*DO NOTHING*/ }
+        protected override void OnBecameInvisible()
+        { /*DO NOTHING*/
+        }
 
         public void AddLives(int lives)
         {
@@ -122,7 +128,14 @@ namespace Character
 
                     if (!isCrouched)
                     {
-                        rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
+                        float speed = maxSpeed * move;
+
+                        if (Mathf.Abs(speed) > maxSpeed)
+                        {
+                            speed = speed < 0 ? -maxSpeed : maxSpeed;
+                        }
+
+                        rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
                     }
                     else
                     {

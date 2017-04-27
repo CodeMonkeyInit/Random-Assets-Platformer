@@ -66,17 +66,18 @@ namespace Camera2D
             if (players.Count > 0)
             {
                 Vector3 slowestPlayer = GetSlowestPlayerCoordinates();
+                Vector3 newCameraCoordinates;
                 CameraConstraints updateConstraints = CameraUpdateConstraints;
 
                 float xCamera = Mathf.Clamp(slowestPlayer.x, cameraConstraints.minX, cameraConstraints.maxX);
                 float yCamera = transform.position.y;
 
-                if (slowestPlayer.y > updateConstraints.maxY || slowestPlayer.y < updateConstraints.minY)
+                if (slowestPlayer.y > (updateConstraints.maxY / 2) || slowestPlayer.y < updateConstraints.minY)
                 {
                     yCamera = Mathf.Clamp(slowestPlayer.y, cameraConstraints.minY, cameraConstraints.maxY);
                 }
 
-                Vector3 newCameraCoordinates = new Vector3(xCamera, yCamera, transform.position.z);
+                newCameraCoordinates = new Vector3(xCamera, yCamera, transform.position.z);
 
                 transform.position = newCameraCoordinates;
             }

@@ -83,7 +83,7 @@ namespace GameInput
             return input;
         }
 
-        public TouchInput(GameObject mobileInput)
+        public TouchInput(ushort playerId, GameObject mobileInput): base(playerId)
         {
             joystick = (GameObject.Instantiate(mobileInput) as GameObject).GetComponentInChildren<Joystick>();
         }
