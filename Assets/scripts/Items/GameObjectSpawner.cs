@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using LevelGenerator;
+using Level;
+using GameObjects;
 
 public class GameObjectSpawner : BasicGameObject
 {
@@ -45,7 +46,7 @@ public class GameObjectSpawner : BasicGameObject
         while (prefabsSpawned != prefabsToSpawnCount)
         {
             GameObject prefab = (GameObject) Instantiate(prefabToSpawn, transform.transform.position, Quaternion.identity);
-            prefab.transform.SetParent(GetComponentInParent<GenerateLevel>().transform);
+			prefab.transform.SetParent(GetComponentInParent<LevelGenerator>().transform);
             prefabsSpawned++;
         }
     }

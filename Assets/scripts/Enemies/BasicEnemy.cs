@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using GameObjects;
 
-namespace PlatformerEnemies
+namespace Enemies
 {
     public class BasicEnemy : InteractableGameObject, IEnemy
     {

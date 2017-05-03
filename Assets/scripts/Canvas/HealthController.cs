@@ -2,28 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Character;
 using Checkpoint;
+using Character;
 
-public class HealthController : MonoBehaviour
+namespace Canvas
 {
-    private Text healthCount;
-    // Use this for initialization
-    void Start()
-    {
-        healthCount = GetComponent<Text>();
-    }
-	
-    // Update is called once per frame
-    void Update()
-    {
-        int lives = 0;
+	public class HealthController : MonoBehaviour
+	{
+		private Text healthCount;
 
-        foreach (MainCharacter character in CustomCharacterController.activeCharacters)
-        {
-            lives += character.Health;
-        }
+		// Use this for initialization
+		void Start()
+		{
+			healthCount = GetComponent<Text>();
+		}
 
-        healthCount.text = lives.ToString();
-    }
+		// Update is called once per frame
+		void Update()
+		{
+			int lives = 0;
+
+			foreach (MainCharacter character in CustomCharacterController.activeCharacters)
+			{
+				lives += character.Health;
+			}
+
+			healthCount.text = lives.ToString();
+		}
+	}
 }
+
+

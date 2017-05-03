@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameInput;
-using LevelGenerator;
-using Coins;
+using Level;
+using GameObjects;
+using Sound;
 
 namespace Character
 {
@@ -13,21 +14,37 @@ namespace Character
         private GameObject mobileInput;
 
         [SerializeField]
-        private static readonly float PathLengthInLevelEnd = 300f;
+        private float PathLengthInLevelEnd = 300f;
         [SerializeField]
         private static readonly float PlayerFullspeed = 1f;
 
         private static int playersCount;
         private CharacterCameraController cameraController;
         private CustomInput input;
-        private GenerateLevel levelGenerator;
+		private LevelGenerator levelGenerator;
         private float autoWalkLength;
 
         private bool levelCompleted;
+
+		private bool characterDied;
+
+		private bool playerFinishedLevel;
             
         public static List<MainCharacter> activeCharacters;
         public CharacterCoinController coinController;
         public MainCharacter character;
+
+		private void PlayerFinishedLevel()
+		{
+			if(!playerFinishedLevel)
+			{
+				SoundGenerator soundGenerator = GameObject
+					.FindGameObjectsWithTag("MusicGenerator")[0]
+					.GetComponent<SoundGenerator>();
+				soundGenerator.PlayLevelFinished();
+				playerFinishedLevel = true;
+			}
+		}
 
         protected void FinishLevel()
         {
@@ -50,7 +67,7 @@ namespace Character
             activeCharacters = new List<MainCharacter>();
             playersCount++;
             coinController = new CharacterCoinController();
-            levelGenerator = GameObject.FindObjectOfType<GenerateLevel>();
+			levelGenerator = GameObject.FindObjectOfType<LevelGenerator>();
             input = InputFactory.GetInput(playersCount, mobileInput);
             character = GetComponentInParent<MainCharacter>();
             activeCharacters.Add(character);
@@ -58,6 +75,23 @@ namespace Character
             //FIXME wtf
             cameraController = character.GetComponentInChildren<CharacterCameraController>();
         }
+
+		protected void FixedUpdate()
+		{
+			if (levelCompleted)
+			{
+				if (activeCharacters.Count == 0)
+				{
+					PlayerFinishedLevel();
+
+					FinishLevel();
+				} else
+				{
+					//TODO remove
+					character.Move(0f, CharacterStatus.Normal);
+				}
+			}
+		}
 
         // Update is called once per frame
         protected void Update()
@@ -72,24 +106,30 @@ namespace Character
                     character.AddLives(1);
                 }
 
-                if (character.IsDead)
+				if (character.IsDead & !characterDied)
                 {
+					SoundGenerator soundGenerator = GameObject
+						.FindGameObjectsWithTag("MusicGenerator")[0]
+						.GetComponent<SoundGenerator>();
+
+					if (character.Health <= 0)
+					{
+						soundGenerator.PlayPlayerIsDead(true);
+					}
+					else
+					{
+						soundGenerator.PlayPlayerIsDead();
+					}
+
                     if (cameraController != null)
                     {
                         Destroy(this.cameraController);
                     }
+
+					characterDied = true;
                 }
 
                 character.Move(userInput.move, userInput.status);
-            }
-            else if (activeCharacters.Count == 0)
-            {
-                FinishLevel();
-            }
-            else 
-            {
-                //TODO remove
-                character.Move(0f, CharacterStatus.Normal);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlatformerEnemies
+namespace Enemies
 {
     
     public interface IEnemy

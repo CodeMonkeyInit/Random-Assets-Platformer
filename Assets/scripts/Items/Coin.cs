@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
-using Coins;
+using GameObjects;
 
 public class Coin : InteractableGameObject
 {
@@ -13,6 +13,11 @@ public class Coin : InteractableGameObject
     [SerializeField]
     private float maxSound = 1f;
 
+	private void DisableColider()
+	{
+		CircleCollider2D colider = gameObject.GetComponent<CircleCollider2D>();
+		colider.enabled = false;
+	}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,6 +29,7 @@ public class Coin : InteractableGameObject
             audioSource.PlayOneShot(InteractionSound, Random.Range(minSound, maxSound));
             coinController.AddCoins(price);
             gameObject.GetComponent<Renderer>().enabled = false;
+			DisableColider();
             DestroyAfterSoundFinished();
         }
     }
@@ -35,12 +41,13 @@ public class Coin : InteractableGameObject
         if (character != null)
         {
             CharacterCoinController coinController = character.GetComponentInChildren<CustomCharacterController>().coinController;
-            CircleCollider2D colider = gameObject.GetComponent<CircleCollider2D>();
+            
+			DisableColider();
 
             audioSource.PlayOneShot(InteractionSound, 1f);
             coinController.AddCoins(price);
 
-            colider.enabled = false;
+            
             gameObject.GetComponent<Renderer>().enabled = false;
 
             DestroyAfterSoundFinished();

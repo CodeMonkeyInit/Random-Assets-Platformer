@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Coins
+namespace Character
 {
     public class CharacterCoinController
     {

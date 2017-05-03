@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using LevelGenerator;
+using Level;
 using Camera2D;
 
 namespace Character
@@ -9,7 +9,7 @@ namespace Character
     {
         private MultiPlayerCamera levelCamera;
         private MainCharacter charater;
-        private GenerateLevel levelGenerator;
+		private LevelGenerator levelGenerator;
 
 
         [SerializeField]
@@ -40,7 +40,7 @@ namespace Character
             }
             if (levelGenerator == null)
             {
-                levelGenerator = GameObject.FindObjectOfType<GenerateLevel>();
+				levelGenerator = GameObject.FindObjectOfType<LevelGenerator>();
             }
             if (charater == null)
             {

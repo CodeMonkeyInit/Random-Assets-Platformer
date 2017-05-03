@@ -8,7 +8,7 @@ namespace GameInput
         protected ushort currentPlayer;
         protected string CurrentPlayer
         {
-            get { return $"Player{currentPlayer}";}
+			get { return string.Format("Player{0}", currentPlayer);}
         }
         public abstract UserInput GetInput();
 

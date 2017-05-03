@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
-using Coins;
+using Character;
 using UnityEngine.UI;
 
-public class CoinsController : MonoBehaviour
+namespace Canvas
 {
-    private Text coinCount;
+	public class CoinsController : MonoBehaviour
+	{
+		private Text coinCount;
 
-    void Start()
-    {
-        coinCount = GetComponent<Text>();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        coinCount.text = CharacterCoinController.CoinCount.ToString();
-    }
+		void Start()
+		{
+			coinCount = GetComponent<Text>();
+		}
+		// Update is called once per frame
+		void Update()
+		{
+			coinCount.text = CharacterCoinController.CoinCount.ToString();
+		}
+	}
 }
