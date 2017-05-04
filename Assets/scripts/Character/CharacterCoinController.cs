@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterCoinController
+
+namespace Character
 {
-    private uint coinCount;
-    public uint CoinCount { get { return coinCount / 3;} }
-
-    public void AddCoins(uint count)
+    public class CharacterCoinController
     {
-        coinCount += count;
-    }
+        private static uint coinCount;
+        public static uint CoinCount { get { return coinCount / 3;} }
 
-    public void Reset()
-    {
-        coinCount = 0;
-    }
+        public void AddCoins(uint count)
+        {
+            coinCount += count;
+        }
 
-    public CharacterCoinController()
-    {
-        Reset();
+        public void Reset()
+        {
+            coinCount = 0;
+        }
+
+        public CharacterCoinController()
+        {
+            Reset();
+        }
     }
 }

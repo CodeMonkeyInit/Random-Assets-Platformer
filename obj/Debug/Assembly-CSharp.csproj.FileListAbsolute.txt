@@ -1,0 +1,2 @@
+E:\Dropbox\Лабы\Курсач ООП\Random Assets Platformer\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+E:\Dropbox\Лабы\Курсач ООП\Random Assets Platformer\obj\Debug\Assembly-CSharp.dll

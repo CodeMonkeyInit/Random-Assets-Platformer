@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameObjects;
 
 namespace Camera2D
 {
@@ -27,6 +28,21 @@ namespace Camera2D
         [SerializeField]
         private List<Transform> players = new List<Transform>();
 
+        private CameraConstraints CameraUpdateConstraints
+        {
+            get
+            {
+                float halfCameraHeight = Camera.main.orthographicSize;
+                float cameraPositionY = transform.position.y;
+
+                return new CameraConstraints(
+                    0, 
+                    cameraPositionY,
+                    0, 
+                    cameraPositionY + halfCameraHeight); 
+            }
+        }
+
         private Vector3 GetSlowestPlayerCoordinates()
         {
             Transform slowestPlayer = players[0];
@@ -51,9 +67,18 @@ namespace Camera2D
             if (players.Count > 0)
             {
                 Vector3 slowestPlayer = GetSlowestPlayerCoordinates();
+                Vector3 newCameraCoordinates;
+                CameraConstraints updateConstraints = CameraUpdateConstraints;
+
                 float xCamera = Mathf.Clamp(slowestPlayer.x, cameraConstraints.minX, cameraConstraints.maxX);
-                float yCamera = Mathf.Clamp(slowestPlayer.y, cameraConstraints.minY, cameraConstraints.maxY);
-                Vector3 newCameraCoordinates = new Vector3(xCamera, yCamera, transform.position.z);
+                float yCamera = transform.position.y;
+
+                if (slowestPlayer.y > (updateConstraints.maxY / 2) || slowestPlayer.y < updateConstraints.minY)
+                {
+                    yCamera = Mathf.Clamp(slowestPlayer.y, cameraConstraints.minY, cameraConstraints.maxY);
+                }
+
+                newCameraCoordinates = new Vector3(xCamera, yCamera, transform.position.z);
 
                 transform.position = newCameraCoordinates;
             }

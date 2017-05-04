@@ -13,16 +13,24 @@ namespace GameInput
             input.move = Input.GetAxis("Horizontal" + CurrentPlayer);
             input.status = CharacterStatus.Normal;
 
-            if(Input.GetAxis("Vertical" + CurrentPlayer) < 0)
+            if (Input.GetKeyUp(KeyCode.Escape))
+                Application.Quit();
+
+            if (Input.GetAxis("Vertical" + CurrentPlayer) < 0)
             {
                 input.status = CharacterStatus.Crouched;
-            } 
-            else if(Input.GetButtonDown("Jump" + CurrentPlayer))
+            }
+            else if (Input.GetButtonDown("Jump" + CurrentPlayer))
             {
                 input.status = CharacterStatus.Jumping;
             }
 
             return input;
+        }
+
+        public PhysicalInput(ushort playerId) : base(playerId)
+        {
+            
         }
     }
 }

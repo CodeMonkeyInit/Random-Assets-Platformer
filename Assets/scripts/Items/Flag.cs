@@ -4,6 +4,7 @@ using UnityEngine;
 using Character;
 using System;
 using Checkpoint;
+using GameObjects;
 
 public class Flag : InteractableGameObject
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using GameObjects;
 
 public class LevelSurface : InteractableGameObject
 {
