@@ -15,7 +15,7 @@ namespace Checkpoint
         {
             if (gameObjectSpawner == null)
             {
-                gameObjectSpawner = GameObject.FindObjectOfType<GameObjectSpawner>();
+                gameObjectSpawner = FindObjectOfType<GameObjectSpawner>();
             }
 
             gameObjectSpawner[currentCheckpoint].Spawn();
