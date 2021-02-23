@@ -4,6 +4,7 @@ using UnityEngine;
 using GameInput;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Level
 {
@@ -87,6 +88,7 @@ namespace Level
         // Use this for initialization
         private void Start()
         {
+            
             colorAndPrefabs = new Dictionary<Color32, GameObject>();
             FillDictionary();
             LoadMap();

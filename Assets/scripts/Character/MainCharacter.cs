@@ -115,12 +115,7 @@ namespace Character
 		{
 			if (!isDead)
 			{
-				bool isCrouched = false;
-
-				if (status == CharacterStatus.Crouched)
-				{
-					isCrouched = true;
-				}
+				bool isCrouched = status == CharacterStatus.Crouched;
 
 				animator.SetBool("isCrouched", isCrouched);
 
