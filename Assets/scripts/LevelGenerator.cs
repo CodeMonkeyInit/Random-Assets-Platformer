@@ -101,7 +101,7 @@ namespace Level
             yield return new WaitForSeconds(seconds);
 
             //FIXME properLoader
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Level");
         }
 
         public void Restart(int seconds)
