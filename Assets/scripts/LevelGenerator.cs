@@ -19,7 +19,7 @@ namespace Level
     public class LevelGenerator : MonoBehaviour
     {
         public Texture2D Level;
-        
+
         [SerializeField] private ColorToPrefab[] colorPrefabsArray;
 
         private Dictionary<Color32, GameObject> colorAndPrefabs;
@@ -87,13 +87,13 @@ namespace Level
 
         private void Start()
         {
-            Level = Globals.level;
+            if (Globals.level != null)
+                Level = Globals.level;
 
             colorAndPrefabs = new Dictionary<Color32, GameObject>();
             FillDictionary();
-            
+
             LoadMap();
- 
         }
 
         private IEnumerator Reload(int seconds)

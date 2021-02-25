@@ -52,6 +52,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\SelectLevelMenu.cs" />
      <Compile Include="Assets\scripts\Items\MultiPlayerCamera.cs" />
      <Compile Include="Assets\scripts\Items\LevelSurface.cs" />
      <Compile Include="Assets\scripts\ExtensionMethods.cs" />
@@ -87,6 +88,8 @@
      <Compile Include="Assets\scripts\Input\TouchInput.cs" />
      <Compile Include="Assets\scripts\Canvas\HealthController.cs" />
      <Compile Include="Assets\scripts\Character\CharacterStatus.cs" />
+     <Compile Include="Assets\MainMenu.cs" />
+     <Compile Include="Assets\GameUI.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\sprites\hud\hud_spritesheet.xml" />
