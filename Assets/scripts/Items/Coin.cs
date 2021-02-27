@@ -9,9 +9,9 @@ public class Coin : InteractableGameObject
     [SerializeField]
     private uint price;
     [SerializeField]
-    private float minSound = 0.5f;
+    private float minSound = 0.3f;
     [SerializeField]
-    private float maxSound = 1f;
+    private float maxSound = 0.6f;
 
 	private void DisableColider()
 	{

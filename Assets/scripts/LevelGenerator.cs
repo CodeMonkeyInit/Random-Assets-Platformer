@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameInput;
 using System.Collections;
+using DefaultNamespace;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Level
 {
-
     [Serializable]
     struct ColorToPrefab
     {
@@ -17,21 +18,20 @@ namespace Level
 
     public class LevelGenerator : MonoBehaviour
     {
-        [SerializeField]
-        private Texture2D level;
+        public Texture2D Level;
 
-        [SerializeField]
-        private ColorToPrefab[] colorPrefabsArray;
+        [SerializeField] private ColorToPrefab[] colorPrefabsArray;
 
         private Dictionary<Color32, GameObject> colorAndPrefabs;
 
         public int LevelHeight
         {
-            get { return level.height; }
+            get { return Level.height; }
         }
+
         public int LevelWidth
         {
-            get { return level.width; }
+            get { return Level.width; }
         }
 
         private void EmptyMap()
@@ -51,6 +51,7 @@ namespace Level
             {
                 colorAndPrefabs.Add(colorPrefab.color, colorPrefab.prefab);
             }
+
             colorPrefabsArray = null;
         }
 
@@ -61,18 +62,18 @@ namespace Level
             {
                 if (colorAndPrefabs.ContainsKey(color))
                 {
-                    GameObject prefab = (GameObject)Instantiate(colorAndPrefabs[color], position, Quaternion.identity);
-                    prefab.transform.SetParent(this.transform);
+                    GameObject prefab = Instantiate(colorAndPrefabs[color], position, Quaternion.identity);
+                    prefab.transform.SetParent(transform);
                     return;
                 }
+
                 Debug.LogWarning("Prefab not found " + color);
             }
-			
         }
 
         private void LoadMap()
         {
-            Color32[] prefabsPositions = level.GetPixels32();
+            Color32[] prefabsPositions = Level.GetPixels32();
             EmptyMap();
 
             for (int x = 0; x < LevelWidth; x++)
@@ -84,11 +85,14 @@ namespace Level
             }
         }
 
-        // Use this for initialization
         private void Start()
         {
+            if (Globals.level != null)
+                Level = Globals.level;
+
             colorAndPrefabs = new Dictionary<Color32, GameObject>();
             FillDictionary();
+
             LoadMap();
         }
 
@@ -96,8 +100,8 @@ namespace Level
         {
             yield return new WaitForSeconds(seconds);
 
-			//FIXME properLoader
-            SceneManager.LoadScene(0);
+            //FIXME properLoader
+            SceneManager.LoadScene("Level");
         }
 
         public void Restart(int seconds)
