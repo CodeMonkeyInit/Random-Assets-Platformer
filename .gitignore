@@ -3,7 +3,7 @@
 *.apk
 /Library/PackageCache/
 /Temp/UnityLockfile
-
+Logs/
 # =============== #
 # Unity generated #
 # =============== #
