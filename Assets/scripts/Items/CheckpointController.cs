@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using GameObjects;
 
@@ -11,8 +13,11 @@ namespace Checkpoint
         private static int? currentCheckpoint;
         private GameObjectSpawner gameObjectSpawner;
 
-        private void Start()
+        private async void Start()
         {
+            //TODO hack remove later
+            await Task.Delay(TimeSpan.FromMilliseconds(200));
+            
             if (gameObjectSpawner == null)
             {
                 gameObjectSpawner = FindObjectOfType<GameObjectSpawner>();
