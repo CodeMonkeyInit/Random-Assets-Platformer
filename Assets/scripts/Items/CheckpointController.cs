@@ -13,11 +13,8 @@ namespace Checkpoint
         private static int? currentCheckpoint;
         private GameObjectSpawner gameObjectSpawner;
 
-        private async void Start()
-        {
-            //TODO hack remove later
-            await Task.Delay(TimeSpan.FromMilliseconds(200));
-            
+        private void Start()
+        {   
             if (gameObjectSpawner == null)
             {
                 gameObjectSpawner = FindObjectOfType<GameObjectSpawner>();
