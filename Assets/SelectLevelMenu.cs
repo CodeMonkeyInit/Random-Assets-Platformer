@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class SelectLevelMenu : MonoBehaviour
 {
@@ -31,23 +28,25 @@ public class SelectLevelMenu : MonoBehaviour
 
     public async void LoadLevelFromUrlAsync()
     {
-        string url = levelUrlText.text;
+        string url = levelUrlText.text.Replace("\u200B", "").Trim();
         
         if (string.IsNullOrWhiteSpace(url))
         {
             return;
         }
-
+        
         using var httpClient = new HttpClient();
-
+        
         var httpResponseMessage = await httpClient.GetAsync(url);
-
+        
         if (!httpResponseMessage.IsSuccessStatusCode) 
             //TODO add somekind of alert
             return;
         
-        var imageBytes = await httpResponseMessage.Content.ReadAsByteArrayAsync();
-            
+        
+        var imageBytes = await  httpResponseMessage.Content.ReadAsByteArrayAsync();
+        
+     
         LoadLevel(imageBytes);
         
     }
@@ -56,9 +55,9 @@ public class SelectLevelMenu : MonoBehaviour
     {
         if (textureData != null)
         {
-            var texture2D = new Texture2D(0, 0);
+            var texture2D = new Texture2D(1, 1);
             
-            texture2D.LoadRawTextureData(textureData);
+            texture2D.LoadImage(textureData);
 
             Globals.level = texture2D;
         }
