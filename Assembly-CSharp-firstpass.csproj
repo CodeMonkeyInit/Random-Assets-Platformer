@@ -640,6 +640,12 @@
  <Reference Include="Unity.VisualStudio.Editor">
  <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.Sysroot.Linux_x86_64">
+ <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
+ <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -658,17 +664,23 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Sysroot.Linux_x86_64">
- <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
- <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
- </Reference>
  <Reference Include="Unity.SysrootPackage.Editor">
  <HintPath>C:/Users/Den/Random-Assets-Platformer/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Unity.PlayerPrefsEditor.Editor.csproj">
+      <Project>{8916c16f-7542-225b-98d2-27f34c0aee16}</Project>
+      <Name>Unity.PlayerPrefsEditor.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.PlayerPrefsEditor.Samples.SampleScene.csproj">
+      <Project>{9a4884a6-03b9-557f-ccef-1f7fadebd4c9}</Project>
+      <Name>Unity.PlayerPrefsEditor.Samples.SampleScene</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.PlayerPrefsEditor.EditorResources.csproj">
+      <Project>{d255fdcd-b2b2-fdce-e883-b37f8fe713fe}</Project>
+      <Name>Unity.PlayerPrefsEditor.EditorResources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
