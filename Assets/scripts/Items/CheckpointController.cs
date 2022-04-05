@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using GameObjects;
 
@@ -12,10 +14,10 @@ namespace Checkpoint
         private GameObjectSpawner gameObjectSpawner;
 
         private void Start()
-        {
+        {   
             if (gameObjectSpawner == null)
             {
-                gameObjectSpawner = GameObject.FindObjectOfType<GameObjectSpawner>();
+                gameObjectSpawner = FindObjectOfType<GameObjectSpawner>();
             }
 
             gameObjectSpawner[currentCheckpoint].Spawn();

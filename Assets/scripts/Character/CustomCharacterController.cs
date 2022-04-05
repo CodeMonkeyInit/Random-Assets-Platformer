@@ -149,21 +149,21 @@ namespace Character
 
         public void SetLevelCompleted()
         {
-            if (!levelCompleted)
-            {
-                levelCompleted = true;
+	        if (levelCompleted) 
+		        return;
+	        
+	        levelCompleted = true;
 
-                autoWalkLength = PathLengthInLevelEnd;
+	        autoWalkLength = PathLengthInLevelEnd;
 
-                Destroy(cameraController);
+	        Destroy(cameraController);
 
-                input.Destroy();
+	        input.Destroy();
 
-                input = null;
-                cameraController = null;
+	        input = null;
+	        cameraController = null;
 
-                activeCharacters.Remove(character);
-            }
+	        activeCharacters.Remove(character);
         }
     }
 }
